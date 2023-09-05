@@ -24,6 +24,7 @@ do{
         2 - Sair
         3 - Cadastrar novo aluno
         4 - Alterar cadastro
+        5 - Excluir cadastro
         ======================
 
         `)
@@ -71,11 +72,11 @@ do{
 
             break;
         case 4:
-            let opcaoBusca = readline.question('Informe o nome do aluno que quer alterar.')
+            let opcaoBuscaAlt = readline.question('Informe o nome do aluno que quer alterar. ')
             for(const ocorrencia of listaAlunos){
                 let valid = 0
-                if(ocorrencia.nome == opcaoBusca){
-
+                if(ocorrencia.nome == opcaoBuscaAlt){
+                    valid = 1
                     let AtribAlteracao = readline.questionInt(`Digite o numeral da opcao qu deseja alterar:
                     1 - nome: 
                     2 - nota 1: 
@@ -97,16 +98,33 @@ do{
                         
                     }
                     console.log('Alteracao realizada com sucesso!')
-                }else{
-                    valid++;
-                    if(valid === listaAlunos.length - 1){
-                        console.log(`Busca não encontrada.`)
-                        break;
-                    }
+                }else if (valid === 0){
+                    console.log(`Busca não encontrada.`)
+                    break;
+                    
                 }
 
             }
             break;
+        
+            case 5:
+                let opcaoBuscaExc = readline.questionInt('Informe a matricula do aluno que quer excluir. ')
+                for(const ocorrencia of listaAlunos){
+                    let valid = 0
+                    if(ocorrencia.id == opcaoBuscaExc){
+                        valid = 1
+
+                        listaAlunos.splice(ocorrencia.id - 1, 1)
+                        console.log('Exclusão bem sucedida!')
+
+                    }else if(valid === 0){
+                        console.log(`Matricula não encontrada.`)
+                        break;
+                        
+                    }
+    
+                }
+                break;
 
         default:
             console.log('Opção inválida. Digite o numeral de uma das opções do menu.')
